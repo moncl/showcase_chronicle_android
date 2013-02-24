@@ -16,6 +16,8 @@
 
 package snow.photo.viewer;
 
+
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -23,13 +25,16 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
+	
+	Context context;
 	private final ImageDownloader imageDownloader = new ImageDownloader();
 	private String[] strURLList;
     
-	public ImageAdapter(String _strURLList[])
+	public ImageAdapter(Context context,String _strURLList[])
 	{
 		if (_strURLList != null) 
 		{
+			this.context=context;
 			strURLList = _strURLList;
 		}
 	}
@@ -60,6 +65,10 @@ public class ImageAdapter extends BaseAdapter {
 
         imageDownloader.download(strURLList[position], (ImageView)view);
         
+        ImageClickListener imageViewClickListener
+        = new ImageClickListener(context, strURLList[position]);
+        view.setOnClickListener(imageViewClickListener);
+    
         return view;
     }
 
