@@ -22,15 +22,20 @@ public class SnowPhotoViewer extends Activity {
 				"http://cfile24.uf.tistory.com/image/110475474D666C30382331",
 				"http://cfile10.uf.tistory.com/image/160475474D666C343CD190",
 				"http://germaneconsulting.com/wp-content/uploads/2011/12/Baby_elephant.jpg",
-				
+				"http://dnfsn.img14.kr/image/2013/02/12/09/09_02tee.jpg"
         };
 
         GridView gv = (GridView)findViewById(R.id.gvGridView);
-        ImageAdapter imgAdapter = new ImageAdapter(this,strURLS);
+        ImageAdapter imgAdapter = new ImageAdapter(strURLS);
 
         gv.setAdapter(imgAdapter);
 
         
+        gv.setOnItemClickListener(new OnItemClickListener() {    
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+               
+            }
+        });
     }
     
 }
