@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+C:\Users\student\Documents\GitHub\showcase_chronicle_android\.metadata\.plugins\org.eclipse.jdt.core
+2544604072.index
+2674275251.index
+1912813533.index
+2171832009.index
