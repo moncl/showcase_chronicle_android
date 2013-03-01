@@ -1,14 +1,12 @@
+
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"  
     android:background="#000"
 >
 	
-    <RelativeLayout 
-        android:layout_width="match_parent"
-   		android:layout_height="wrap_content"  
-        >
-    
+   
         
         <com.loopj.android.image.SmartImageView
         android:id="@+id/my_image"
@@ -17,7 +15,6 @@
         android:adjustViewBounds="true"
          />
         
-       </RelativeLayout>
-    
+      
 
 </ScrollView>
