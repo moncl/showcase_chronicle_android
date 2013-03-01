@@ -1,20 +1,10 @@
-
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"  
-    android:background="#000"
->
-	
-   
-        
-        <com.loopj.android.image.SmartImageView
-        android:id="@+id/my_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-         />
-        
-      
-
-</ScrollView>
+     
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/gvGridView" 
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" 
+	android:numColumns="3"
+	android:stretchMode="columnWidth"
+	android:gravity="center">
+    
+</GridView>

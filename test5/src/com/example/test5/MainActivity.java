@@ -1,18 +1,11 @@
 package com.example.test5;
 
-import com.loopj.android.image.SmartImageView;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.DisplayMetrics;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.TextView;
-//dfwet
+import android.widget.GridView;
+
+
 public class MainActivity extends Activity {
 
 	@Override
@@ -28,10 +21,17 @@ public class MainActivity extends Activity {
 				
         };
 		
-		SmartImageView myImage = (SmartImageView)findViewById(R.id.my_image);
-		myImage.setImageUrl(strURLS[4]);
 		
+		 GridView gv = (GridView)findViewById(R.id.gvGridView);
+	        ImageAdapter imgAdapter = new ImageAdapter(strURLS);
+
+	        gv.setAdapter(imgAdapter);
+	        
 	}
+
+		
+		
+		//SmartImageView myImage = (SmartImageView)findViewById(R.id.my_image);
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
