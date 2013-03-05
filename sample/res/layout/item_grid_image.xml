@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ImageView 
+    android:adjustViewBounds="true" 
+    android:layout_height="100dp"
+    android:layout_width="100dp" 
+    android:id="@+id/image" 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:scaleType="centerCrop"/>
+
