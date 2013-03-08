@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.nostra13.example.universalimageloader;
 
+import java.util.ArrayList;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -50,6 +52,7 @@ public final class Constants {
 	public static JSONObject photoObject = new JSONObject();
 	public static JSONArray PhotoArray = new JSONArray();
 	
+	public static ArrayList<String> PhotoUrlArray = new ArrayList<String>();
 	private void getJsonPhoto () {
 		try{
 			HttpParams params = new BasicHttpParams();
@@ -68,6 +71,7 @@ public final class Constants {
 					for(int i =0; i<PhotoArray.length(); i++) {
 						
 						String photoUrl = photoObject.getString("photo_file");
+						PhotoUrlArray.add(photoUrl);
 					}
 				}
 			} 
