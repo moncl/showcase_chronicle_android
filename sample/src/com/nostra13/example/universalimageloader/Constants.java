@@ -49,38 +49,7 @@ public final class Constants {
 	
 //	public static final String[] Photo = new String[] {};
 	
-	public static JSONObject photoObject = new JSONObject();
-	public static JSONArray PhotoArray = new JSONArray();
-	
-	public static ArrayList<String> PhotoUrlArray = new ArrayList<String>();
-	private void getJsonPhoto () {
-		try{
-			HttpParams params = new BasicHttpParams();
-			HttpConnectionParams.setSoTimeout(params, 0);
-			HttpClient httpClient = new DefaultHttpClient(params);
-			
-			HttpGet httpget = new HttpGet(productsJsonUrl);
-			HttpEntity entity = httpClient.execute(httpget).getEntity();
-			if(entity != null) {
-				String response = EntityUtils.toString(entity);
-				entity.consumeContent();
-				
-				httpClient.getConnectionManager().shutdown();
-				
-				if(PhotoArray !=null) {
-					for(int i =0; i<PhotoArray.length(); i++) {
-						
-						String photoUrl = photoObject.getString("photo_file");
-						PhotoUrlArray.add(photoUrl);
-					}
-				}
-			} 
-		}catch(Exception e) {
-			e.printStackTrace();
-			String error = e.toString();
-			Log.d("wqe",error);
-		}  
-	}
+
 //		for(int i=0; i>10; i++) 
 //		{
 //			JSONObject JObject = new JSONObject();
