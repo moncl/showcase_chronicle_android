@@ -15,6 +15,9 @@
  *******************************************************************************/
 package com.nostra13.example.universalimageloader;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
@@ -29,6 +32,22 @@ public final class Constants {
 			"http://data.ygosu.com/editor/attach/2/20120111/fDeHaM84S4CVJuG.jpg",
 			
 	};
+	
+//	public static JSONObject photoObject = new JSONObject();
+//	public static JSONArray PhotoArray = new JSONArray();
+//	
+//	private void getJsonPhoto () {
+//		for(int i=0; i>10; i++) 
+//		{
+//			JSONObject JObject = new JSONObject();
+//			try
+//			{
+//				JObject.put
+//			} JSON Photo받아오는거 작업중. 
+//		}
+//	}
+
+	
 	//test
 	private Constants() {
 	}
