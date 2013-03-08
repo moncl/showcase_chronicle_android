@@ -120,7 +120,7 @@ public class ImageGridActivity extends BaseActivity {
 	public static JSONObject photoObject = new JSONObject();
 	public static JSONArray PhotoArray = new JSONArray();
 	
-	public static ArrayList<String> PhotoUrlArray = new ArrayList<String>();
+//	public static ArrayList<String> PhotoUrlArray = new ArrayList<String>();
 	
 	private void getJsonPhoto () {
 		try{
@@ -156,7 +156,8 @@ public class ImageGridActivity extends BaseActivity {
 	public class ImageAdapter extends BaseAdapter {
 		private Context mContext;
 		private ArrayList<String> PhotoUrlArray;
-		//public ArrayList<String> array = new ArrayList<String>();
+
+		
 		public ImageAdapter(Context c, ArrayList<String> photoarr) {
 			mContext =c;
 			PhotoUrlArray = photoarr;
@@ -182,7 +183,7 @@ public class ImageGridActivity extends BaseActivity {
 			if (convertView == null) {
 				imageView = new ImageView(mContext);
 //				imageView.setScaleType(ImageView)
-				imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_grid_image, parent, false);
+				imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_grid_image, parent, true);
 			} else {
 				imageView = (ImageView) convertView;
 			}

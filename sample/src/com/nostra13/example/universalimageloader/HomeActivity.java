@@ -183,6 +183,9 @@ public class HomeActivity extends BaseActivity {
                             Intent Grid_call_intent = new Intent(HomeActivity.this, ImageGridActivity.class);
                             Grid_call_intent.putExtra(Extra.IMAGES, IMAGES);
                             startActivity(Grid_call_intent);
+                            finish();
+                        } else {
+                        	
                         }
                     }
                 }
