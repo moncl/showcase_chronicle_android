@@ -29,7 +29,7 @@ public final class Constants {
 			"http://data.ygosu.com/editor/attach/2/20120111/fDeHaM84S4CVJuG.jpg",
 			
 	};
-
+	//test
 	private Constants() {
 	}
 
