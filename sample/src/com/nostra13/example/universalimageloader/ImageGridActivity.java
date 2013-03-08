@@ -58,34 +58,19 @@ public class ImageGridActivity extends BaseActivity {
 	ArrayList<String> photoarr;
 	public String DEBUG_TAG = "www";
 	
+	
+	public static JSONObject photoObject = new JSONObject();
+	public static JSONArray PhotoArray = new JSONArray();
+	String[] PhotoUrl = new String[] {};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_grid);
+		
 		photoarr = new ArrayList<String>();
-		
-		
-		new GetPhotoJsonTask().execute();
-		
-		private class GetPhotoJsonTask extends AsyncTask<Void,Void,Void>{
-	        protected void onPostExecute(Void params){
-	                             Log.d("wwwwww","AsyncTask photoJSON Start");
-
-
-	        }
-
-	        @Override
-	        protected Void doInBackground(Void... params) {
-	            // TODO Auto-generated method stub
-	          //  mHandler.post(wait);
-	            getJsonPhoto();
-	            return null;
-	        }
-
-
-	    }
-		
+//		
+	
 		
 		
 	
@@ -113,7 +98,30 @@ public class ImageGridActivity extends BaseActivity {
 			}
 		});
 		gridView.setOnScrollListener(new PauseOnScrollListener(imageLoader, true, true));
+		
+		new GetPhotoJsonTask().execute();
+		
+		class GetPhotoJsonTask extends AsyncTask<Void,Void,Void>{
+	        protected void onPostExecute(Void result){
+	        	super.onPostExecute(result);
+	                             Log.d("wwwwww","AsyncTask photoJSON Start");
+
+
+	        }
+
+	        @Override
+	        protected Void doInBackground(Void... params) {
+	            // TODO Auto-generated method stub
+	          //  mHandler.post(wait);
+	            getJsonPhoto();
+	            
+	        }
+
+
+	    }
+		
 	}
+	
 
 	private void startImagePagerActivity(int position) {
 		Intent intent = new Intent(this, ImagePagerActivity.class);
@@ -125,12 +133,10 @@ public class ImageGridActivity extends BaseActivity {
 	
 
 	
-	public static JSONObject photoObject = new JSONObject();
-	public static JSONArray PhotoArray = new JSONArray();
-	String[] PhotoUrl = new String[] {};
+
 //	public static ArrayList<String> PhotoUrlArray = new ArrayList<String>();
 	
-	private void getJsonPhoto () {
+	public void getJsonPhoto () {
 		try{
 			HttpParams params = new BasicHttpParams();
 			HttpConnectionParams.setSoTimeout(params, 0);
