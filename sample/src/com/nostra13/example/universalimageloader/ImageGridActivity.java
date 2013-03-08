@@ -28,9 +28,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,12 +53,15 @@ public class ImageGridActivity extends BaseActivity {
 	String[] imageUrls;
 	public static final String productsJsonUrl = "http://chilchil.me/products.json";
 	DisplayImageOptions options;
+	ArrayList<String> photoarr;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_grid);
-		
+		photoarr = new ArrayList<String>();
+		getJsonPhoto();
 	
 		Bundle bundle = getIntent().getExtras();
 		imageUrls = bundle.getStringArray(Extra.IMAGES);
@@ -73,9 +76,10 @@ public class ImageGridActivity extends BaseActivity {
 			.cacheOnDisc()
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.build();
-
+		ImageAdapter adapter = new ImageAdapter(this, photoarr);
+		
 		GridView gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setAdapter(new ImageAdapter());
+		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -136,7 +140,7 @@ public class ImageGridActivity extends BaseActivity {
 					for(int i =0; i<PhotoArray.length(); i++) {
 						
 						String photoUrl = photoObject.getString("photo_file");
-						PhotoUrlArray.add(photoUrl);
+						photoarr.add(photoUrl);
 					}
 				}
 			} 
@@ -150,8 +154,13 @@ public class ImageGridActivity extends BaseActivity {
 	
 	
 	public class ImageAdapter extends BaseAdapter {
-		ArrayList<String> PhotoUrlArray;
+		private Context mContext;
+		private ArrayList<String> PhotoUrlArray;
 		//public ArrayList<String> array = new ArrayList<String>();
+		public ImageAdapter(Context c, ArrayList<String> photoarr) {
+			mContext =c;
+			PhotoUrlArray = photoarr;
+		}
 		@Override
 		public int getCount() {
 			return PhotoUrlArray.size();
@@ -169,8 +178,10 @@ public class ImageGridActivity extends BaseActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			final ImageView imageView;
+			ImageView imageView;
 			if (convertView == null) {
+				imageView = new ImageView(mContext);
+//				imageView.setScaleType(ImageView)
 				imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_grid_image, parent, false);
 			} else {
 				imageView = (ImageView) convertView;
