@@ -156,7 +156,7 @@ public class HomeActivity extends BaseActivity {
             HttpClient httpClient = new DefaultHttpClient(params);
 
             //prepare the HTTP GET call
-            HttpGet httpget = new HttpGet("http://chilchil.me/json/stores.json");
+            HttpGet httpget = new HttpGet("http://www.moncl.net:8888/stores.json");
 
             //get the response entityasd
             HttpEntity entity = httpClient.execute(httpget).getEntity();

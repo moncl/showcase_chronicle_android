@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.nostra13.example.universalimageloader;
 
+import static com.nostra13.example.universalimageloader.Constants.IMAGES;
+
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -61,7 +63,7 @@ public class ImageGridActivity extends BaseActivity {
 	
 	public static JSONObject photoObject = new JSONObject();
 	public static JSONArray PhotoArray = new JSONArray();
-	String[] PhotoUrl = new String[] {};
+	String[] PhotoUrl = new String[]{};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,9 +71,9 @@ public class ImageGridActivity extends BaseActivity {
 		setContentView(R.layout.ac_image_grid);
 		
 		photoarr = new ArrayList<String>();
-//		
-	
-		
+		new GetPhotoJsonTask().execute();
+	//	PhotoUrl=new String[]{"http://uiimage.dnshop.co.kr/eventfile/C803_20100706105949/20100809_SOUP.jpg"};
+	//	photoarr.add("http://uiimage.dnshop.co.kr/eventfile/C803_20100706105949/20100809_SOUP.jpg");
 		
 	
 		Bundle bundle = getIntent().getExtras();
@@ -99,30 +101,8 @@ public class ImageGridActivity extends BaseActivity {
 		});
 		gridView.setOnScrollListener(new PauseOnScrollListener(imageLoader, true, true));
 		
-		new GetPhotoJsonTask().execute();
 		
-		class GetPhotoJsonTask extends AsyncTask<Void,Void,Void>{
-	        protected void onPostExecute(Void result){
-	        	super.onPostExecute(result);
-	                             Log.d("wwwwww","AsyncTask photoJSON Start");
-
-
-	        }
-
-	        @Override
-	        protected Void doInBackground(Void... params) {
-	            // TODO Auto-generated method stub
-	          //  mHandler.post(wait);
-	            getJsonPhoto();
-	            
-	        }
-
-
-	    }
-		
-	}
-	
-
+}
 	private void startImagePagerActivity(int position) {
 		Intent intent = new Intent(this, ImagePagerActivity.class);
 		intent.putExtra(Extra.IMAGES, photoarr);
@@ -130,12 +110,26 @@ public class ImageGridActivity extends BaseActivity {
 		startActivity(intent);
 	}
 	
-	
+	private class GetPhotoJsonTask extends AsyncTask<Void,Void,Void>{
+        protected void onPostExecute(Void result){
+        	super.onPostExecute(result);
+                 
 
-	
 
-//	public static ArrayList<String> PhotoUrlArray = new ArrayList<String>();
-	
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // TODO Auto-generated method stub
+          //  mHandler.post(wait);
+        	Log.d("Good","Start");
+            getJsonPhoto();
+			return null;
+            
+        }
+
+
+    }
 	public void getJsonPhoto () {
 		try{
 			HttpParams params = new BasicHttpParams();
@@ -147,22 +141,20 @@ public class ImageGridActivity extends BaseActivity {
 			if(entity != null) {
 				String response = EntityUtils.toString(entity);
 				Log.d("Parse",response);
-				entity.consumeContent();
-				
+				entity.consumeContent();				
 				httpClient.getConnectionManager().shutdown();
 				
-				if(PhotoArray !=null) {
-					for(int i =0; i<PhotoArray.length(); i++) {
-						
-						String photoUrl = photoObject.getString("photo_file");
-						photoarr.add(photoUrl);
-						Log.d(photoUrl, "www");
-						PhotoUrl = photoarr.toArray(new String[photoarr.size()]);
-						for(String photoarr : PhotoUrl) {
-							System.out.println(photoarr);
-						}
-					}
-				}
+				 JSONArray json_photoArray = new JSONArray(response);
+
+	                if(json_photoArray != null) {
+	                    for(int i = 0 ; i < json_photoArray.length() ; i++) {
+
+	                        JSONObject object1 = (JSONObject) json_photoArray.get(i);
+	                        String photourlString = object1.getString("photo_file");
+	                        photoarr.add(photourlString);
+	                        Log.d("Photo",photourlString);
+	                    }
+	                }
 			} 
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -170,7 +162,6 @@ public class ImageGridActivity extends BaseActivity {
 			Log.d("wqe",error);
 		}  
 	}
-	
 	
 	
 	public class ImageAdapter extends BaseAdapter {
@@ -202,14 +193,10 @@ public class ImageGridActivity extends BaseActivity {
 			ImageView imageView;
 			if (convertView == null) {
 				imageView = new ImageView(mContext);
-//				imageView.setScaleType(ImageView)
 				imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_grid_image, parent, true);
-//				imageView.setImage
 			} else {
 				imageView = (ImageView) convertView;
 			}
-			  
-//			imageLoader.di
 			imageLoader.displayImage(PhotoUrl[position], imageView, options);
 
 			return imageView;
