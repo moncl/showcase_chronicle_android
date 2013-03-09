@@ -59,22 +59,9 @@ public class HomeActivity extends BaseActivity {
 		
 		File testImageOnSdCard = new File("/mnt/sdcard/UniversalImageLoader.png");
 		if (!testImageOnSdCard.exists()) {
-			copyTestImageToSdCard(testImageOnSdCard);       /// Hello..
-
+			copyTestImageToSdCard(testImageOnSdCard);
 		}
-
-
-        /// 접근 불가
-                      new GetJsonTask().execute();
-		
-		
-//		for(int i=0;i<phone_num_db.length;i++){
-//			if(phone_num_db[i].equals(getMyPhoneNumber())){
-//				Intent Grid_call_intent = new Intent(HomeActivity.this, ImageGridActivity.class);
-//				Grid_call_intent.putExtra(Extra.IMAGES, IMAGES); 
-//				startActivity(Grid_call_intent);
-//			}
-//		}
+		new GetJsonTask().execute();
 	}
 	
 
@@ -85,22 +72,6 @@ public class HomeActivity extends BaseActivity {
 		    return mTelephonyMgr.getLine1Number();
 		}
 		
-//		private String getMy10DigitPhoneNumber(){
-//		    String s = getMyPhoneNumber();
-//		    return s;
-//		}
-
-	
-//	public void onImageGridClick(View view) {
-//		Intent intent = new Intent(this, ImageGridActivity.class);
-//		intent.putExtra(Extra.IMAGES, IMAGES);
-//		startActivity(intent);
-//	}
-
-	
-
-	
-
 	@Override
 	public void onBackPressed() {
 		imageLoader.stop();
@@ -158,7 +129,7 @@ public class HomeActivity extends BaseActivity {
             //prepare the HTTP GET call
             HttpGet httpget = new HttpGet("http://www.moncl.net:8888/stores.json");
 
-            //get the response entityasd
+            //get the response
             HttpEntity entity = httpClient.execute(httpget).getEntity();
 
             if (entity != null) {
