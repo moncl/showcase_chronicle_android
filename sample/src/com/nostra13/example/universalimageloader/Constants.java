@@ -37,7 +37,9 @@ public final class Constants {
 	
 	
 	public static final String productsJsonUrl = "http://chilchil.me/products.json";
-	public static final String[] IMAGES = new String[] {
+/*
+	  public static final String[] IMAGES = new String[] {
+	 
 			"http://uiimage.dnshop.co.kr/eventfile/C803_20100706105949/20100809_SOUP.jpg",
 			"http://uiimage.dnshop.co.kr/eventfile/C803_20100706105949/20100809_SOUP.jpg",
 			"http://data.ygosu.com/editor/attach/2/20120111/fDeHaM84S4CVJuG.jpg",
@@ -46,22 +48,9 @@ public final class Constants {
 			"http://data.ygosu.com/editor/attach/2/20120111/fDeHaM84S4CVJuG.jpg",
 			
 	};
-	
-//	public static final String[] Photo = new String[] {};
-	
-
-//		for(int i=0; i>10; i++) 
-//		{
-//			JSONObject JObject = new JSONObject();
-//			try
-//			{
-//				JObjec
-//			} // JSON Photo받아오는거 작업중. 
-//		}
-//	}
-//
-//	
-//	//test
+*/	
+	public static String[] IMAGES = new String[] {
+};
 	private Constants() {
 	}
 
