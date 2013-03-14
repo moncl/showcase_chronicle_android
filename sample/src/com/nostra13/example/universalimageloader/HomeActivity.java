@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -50,9 +51,12 @@ import com.nostra13.universalimageloader.utils.L;
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
 public class HomeActivity extends BaseActivity {
-	@Override
+	ArrayList<String> tmp_TabStringArray;
+	JSONArray jsonArray;
+	@Override	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		tmp_TabStringArray = new ArrayList<String>();
 		setContentView(R.layout.ac_home);
                                                   Log.d("HELLO","HELLO");
 		
@@ -105,20 +109,46 @@ public class HomeActivity extends BaseActivity {
 
     private class GetJsonTask extends AsyncTask<Void,Void,Void>{
         protected void onPostExecute(Void params){
-                             Log.d("Hello","AsyncTask Start");
-            //dialog.dismiss();
-
+        	Log.d("Hello","AsyncTask Finish");
+        	Log.d("fdssd",tmp_TabStringArray.toString());
+            checkphonenumber();                 
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             // TODO Auto-generated method stub
           //  mHandler.post(wait);
+        	getTabStringJSON();
             getJson();
+            
             return null;
         }
 
 
+    }
+    private void checkphonenumber(){
+    	try{
+    		  if(jsonArray != null) {
+    	            for(int i = 0 ; i < jsonArray.length() ; i++) {
+
+    	                JSONObject object1 = (JSONObject) jsonArray.get(i);
+    	                String phoneString = object1.getString("phone");
+
+    	                if(phoneString.equals(getMyPhoneNumber())){
+    	                    Intent Grid_call_intent = new Intent(HomeActivity.this, MainTabActivity.class);
+    	                    Grid_call_intent.putExtra(Extra.IMAGES, IMAGES);
+    	                    Grid_call_intent.putExtra("Tabnames",tmp_TabStringArray);
+    	                    startActivity(Grid_call_intent);
+    	                    finish();
+    	                } else {
+    	                	
+    	                }
+    	            }
+    	        }
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+      
     }
     private void getJson(){
         try {
@@ -142,22 +172,48 @@ public class HomeActivity extends BaseActivity {
                 // When HttpClient instance is no longer needed, shut down the connection manager to ensure immediate deallocation of all system resources
                 httpClient.getConnectionManager().shutdown();
 
+                jsonArray = new JSONArray(response);
+
+            
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            String error = e.toString();
+            Log.d("Hello",error);
+        }
+    }
+    
+    private void getTabStringJSON(){
+        try {
+            HttpParams params = new BasicHttpParams();
+            HttpConnectionParams.setSoTimeout(params, 0);
+            HttpClient httpClient = new DefaultHttpClient(params);
+
+            //prepare the HTTP GET call
+            HttpGet httpget = new HttpGet("http://moncl.net:8888/categories.json");
+
+            //get the response
+            HttpEntity entity = httpClient.execute(httpget).getEntity();
+
+            if (entity != null) {
+                //get the response content as a string
+                String response = EntityUtils.toString(entity);
+                Log.d("Hello",response);
+                //consume the entity
+                entity.consumeContent();
+
+                // When HttpClient instance is no longer needed, shut down the connection manager to ensure immediate deallocation of all system resources
+                httpClient.getConnectionManager().shutdown();
+
                 JSONArray jsonArray = new JSONArray(response);
 
                 if(jsonArray != null) {
                     for(int i = 0 ; i < jsonArray.length() ; i++) {
 
                         JSONObject object1 = (JSONObject) jsonArray.get(i);
-                        String phoneString = object1.getString("phone");
-
-                        if(phoneString.equals(getMyPhoneNumber())){
-                            Intent Grid_call_intent = new Intent(HomeActivity.this, ImageGridActivity.class);
-                            Grid_call_intent.putExtra(Extra.IMAGES, IMAGES);
-                            startActivity(Grid_call_intent);
-                            finish();
-                        } else {
-                        	
-                        }
+                        String nameString = object1.getString("name");
+                        Log.d("",nameString);
+                        tmp_TabStringArray.add(nameString);
                     }
                 }
             }
@@ -167,4 +223,6 @@ public class HomeActivity extends BaseActivity {
             Log.d("Hello",error);
         }
     }
+    
+   
 }

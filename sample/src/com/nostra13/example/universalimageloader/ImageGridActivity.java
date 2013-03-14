@@ -51,11 +51,10 @@ import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
 public class ImageGridActivity extends BaseActivity {
-
+	String imageUrlString;
 	static String[] imageUrls;
 	DisplayImageOptions options;
 	ArrayList<String> tmp_ImageJsonArray;
-	public static final String productsJsonUrl = "http://chilchil.me/json/products.json";
 	
 	ProgressDialog dialog;
 	private Handler mHandler= new Handler();
@@ -68,6 +67,8 @@ public class ImageGridActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent i = getIntent();
+		imageUrlString = i.getStringExtra("imagejsonurl");
 		setContentView(R.layout.ac_image_grid);
 		tmp_ImageJsonArray=new ArrayList<String>();
 		new ImageJsonTask().execute();
@@ -84,7 +85,7 @@ public class ImageGridActivity extends BaseActivity {
 			dialog.dismiss();
 			
 			// Image Processing
-			imageUrls = Constants.IMAGES;
+			imageUrls =(String[])tmp_ImageJsonArray.toArray(new String[tmp_ImageJsonArray.size()]);
 			
 
 			options = new DisplayImageOptions.Builder()
@@ -124,7 +125,7 @@ public class ImageGridActivity extends BaseActivity {
 			HttpConnectionParams.setSoTimeout(params, 0);
 			HttpClient httpClient = new DefaultHttpClient(params);
 
-			HttpGet httpget = new HttpGet(productsJsonUrl);
+			HttpGet httpget = new HttpGet(imageUrlString);
 			HttpEntity entity = httpClient.execute(httpget).getEntity();
 			if(entity != null) {
 				String response = EntityUtils.toString(entity);
@@ -138,7 +139,7 @@ public class ImageGridActivity extends BaseActivity {
 	                    for(int i = 0 ; i < json_photoArray.length() ; i++) {
 
 	                        JSONObject object1 = (JSONObject) json_photoArray.get(i);
-	                        String photourlString = object1.getString("photo_file");
+	                        String photourlString = object1.getString("url");
 	                        tmp_ImageJsonArray.add(photourlString);
 	                        Log.d("Photo",photourlString);
 	                    }

@@ -49,8 +49,8 @@ public final class Constants {
 			
 	};
 */	
-	public static String[] IMAGES = new String[] {
-};
+	public static String[] IMAGES = new String[] {};
+	public static ArrayList<String> TABNAMES = new ArrayList<String>();
 	private Constants() {
 	}
 
